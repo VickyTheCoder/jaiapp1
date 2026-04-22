@@ -3,7 +3,7 @@ name: Build Android
 on:
   push:
     branches:
-      - main
+      - master
       - release
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
         pip install buildozer cython
 
     - name: Build DEBUG APK
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/master'
       run: buildozer android debug
 
     - name: Build RELEASE AAB
