@@ -1,0 +1,7 @@
+kivy
+kivymd
+pillow
+reportlab
+python-docx
+plyer
+pyjnius
