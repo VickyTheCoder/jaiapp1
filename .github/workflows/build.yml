@@ -14,6 +14,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    # 🔥 FIX: Use compatible Python version
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
     - name: Install system deps
       run: |
         sudo apt update
@@ -42,7 +48,7 @@ jobs:
         export ANDROID_SDK_ROOT=$HOME/android-sdk
         export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
 
-        # 🔥 FIX: Create expected path for buildozer
+        # 🔥 FIX: Make sdkmanager visible to buildozer
         mkdir -p $ANDROID_SDK_ROOT/tools/bin
         ln -s $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager $ANDROID_SDK_ROOT/tools/bin/sdkmanager
 
