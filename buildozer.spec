@@ -9,7 +9,8 @@ source.include_exts = py,kv,jpg,png
 
 version = 1.0
 
-requirements = python3,kivy,kivymd,pillow,reportlab,python-docx,pyjnius,plyer
+# ⚠️ Removed python-docx (important for build success)
+requirements = python3,kivy,kivymd,pillow,reportlab,pyjnius,plyer
 
 orientation = portrait
 
@@ -19,14 +20,13 @@ android.permissions = READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE,INTERNET
 # Android config
 android.api = 31
 android.minapi = 21
-android.sdk = 31
 android.build_tools = 31.0.0
 
+android.sdk_path = /home/runner/android-sdk
 android.accept_sdk_license = True
 android.skip_update = True
-android.sdk_path = /home/runner/android-sdk
 
 fullscreen = 0
 
-# Recommended for file access (Android 10+)
+# Android 10+ file access
 android.request_legacy_storage = True
