@@ -34,7 +34,7 @@ jobs:
     - name: Install Python deps
       run: |
         pip install --upgrade pip
-        pip install buildozer cython
+        pip install buildozer cython==0.29.36
 
     - name: Setup Android SDK
       run: |
