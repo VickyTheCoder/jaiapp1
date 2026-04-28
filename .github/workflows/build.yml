@@ -41,10 +41,14 @@ jobs:
         export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
 
         yes | sdkmanager --licenses
-        sdkmanager "platform-tools" "platforms;android-31" "build-tools;31.0.0"
 
-    - name: Build AP
+        sdkmanager \
+          "platform-tools" \
+          "platforms;android-31" \
+          "build-tools;31.0.0"
+    - name: Build APK
       run: |
+        export ANDROIDSDK=$HOME/android-sdk
         buildozer android debug
 
     - name: Upload APK
