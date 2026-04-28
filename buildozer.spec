@@ -10,7 +10,7 @@ source.include_exts = py,kv,jpg,png
 version = 1.0
 
 # ⚠️ Removed python-docx (important for build success)
-requirements = python3,kivy,kivymd,pillow,reportlab,pyjnius,plyer
+requirements = python3==3.10.11,kivy,kivymd,pillow,reportlab,pyjnius,plyer
 
 orientation = portrait
 
@@ -30,3 +30,5 @@ fullscreen = 0
 
 # Android 10+ file access
 android.request_legacy_storage = True
+
+android.arch = arm64-v8a
