@@ -32,3 +32,4 @@ fullscreen = 0
 android.request_legacy_storage = True
 
 android.arch = arm64-v8a
+p4a.branch = stable
