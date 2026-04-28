@@ -29,10 +29,19 @@ jobs:
         pip install --upgrade pip
         pip install buildozer cython
         
-    - name: Accept Android licenses
+    - name: Setup Android SDK
       run: |
-        yes | buildozer android update || true
-        yes | sdkmanager --licenses || true
+        mkdir -p $HOME/android-sdk/cmdline-tools
+        cd $HOME/android-sdk/cmdline-tools
+        wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+        unzip commandlinetools-linux-*.zip
+        mv cmdline-tools latest
+
+        export ANDROID_SDK_ROOT=$HOME/android-sdk
+        export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+
+        yes | sdkmanager --licenses
+        sdkmanager "platform-tools" "platforms;android-31" "build-tools;31.0.0"
 
     - name: Build AP
       run: |
