@@ -46,6 +46,10 @@ jobs:
           "platform-tools" \
           "platforms;android-31" \
           "build-tools;31.0.0"
+
+    - name: Clean buildozer cache
+      run: rm -rf ~/.buildozer
+  
     - name: Build APK
       run: |
         export ANDROIDSDK=$HOME/android-sdk
