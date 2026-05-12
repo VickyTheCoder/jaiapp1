@@ -20,6 +20,7 @@ android.minapi = 21
 android.build_tools = 31.0.0
 
 android.arch = arm64-v8a
+android.ndk = 25b
 
 android.sdk_path = /home/runner/android-sdk
 android.accept_sdk_license = True
