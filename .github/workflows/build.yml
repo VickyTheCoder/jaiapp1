@@ -6,69 +6,74 @@ on:
       - master
       - main
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
     - name: Checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@v4
 
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v6
+    - name: Setup Python
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: '3.10'
 
-    - name: Install system deps
+    - name: Install system dependencies
       run: |
         sudo apt update
-        sudo apt install -y \
-          python3-pip \
-          git zip unzip openjdk-17-jdk \
-          autoconf automake libtool pkg-config \
-          libltdl-dev \
-          zlib1g-dev libncurses5-dev libncursesw5-dev \
-          cmake libffi-dev libssl-dev
 
-    - name: Install Python deps
+        sudo apt install -y \
+          git zip unzip openjdk-17-jdk \
+          python3-pip autoconf libtool pkg-config \
+          zlib1g-dev libncurses5-dev libncursesw5-dev \
+          cmake libffi-dev libssl-dev \
+          libltdl-dev \
+          automake
+
+    - name: Install Python packages
       run: |
-        pip install --upgrade pip
-        pip install buildozer cython==0.29.36
+        python -m pip install --upgrade pip
+
+        pip install cython==0.29.33
+        pip install buildozer==1.5.0
+        pip install python-for-android==2024.01.21
 
     - name: Setup Android SDK
       run: |
         mkdir -p $HOME/android-sdk/cmdline-tools
+
         cd $HOME/android-sdk/cmdline-tools
 
         wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
-        unzip commandlinetools-linux-*.zip
+
+        unzip commandlinetools-linux-11076708_latest.zip
+
         mv cmdline-tools latest
 
         export ANDROID_SDK_ROOT=$HOME/android-sdk
         export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
-
-        # Buildozer compatibility
-        mkdir -p $ANDROID_SDK_ROOT/tools/bin
-        ln -s $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager $ANDROID_SDK_ROOT/tools/bin/sdkmanager
 
         yes | sdkmanager --licenses
 
         sdkmanager \
           "platform-tools" \
           "platforms;android-31" \
-          "build-tools;31.0.0" \
-          "cmdline-tools;latest"
+          "build-tools;31.0.0"
 
-    - name: Clean buildozer cache
-      run: rm -rf ~/.buildozer
+    - name: Clean build cache
+      run: |
+        rm -rf .buildozer
+        rm -rf ~/.buildozer
 
     - name: Build APK
       run: |
         export ANDROIDSDK=$HOME/android-sdk
         export ANDROID_SDK_ROOT=$HOME/android-sdk
+
         buildozer android debug
 
     - name: Upload APK
