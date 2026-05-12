@@ -25,7 +25,6 @@ android.sdk_path = /home/runner/android-sdk
 android.accept_sdk_license = True
 android.skip_update = True
 
-# 🔥 IMPORTANT FIX
 android.release_artifact = apk
 
 fullscreen = 0
