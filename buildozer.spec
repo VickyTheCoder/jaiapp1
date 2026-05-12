@@ -9,7 +9,7 @@ source.include_exts = py,kv,jpg,png
 
 version = 1.0
 
-requirements = python3==3.10.11,kivy,kivymd,pillow,reportlab,pyjnius,plyer
+requirements = python3,kivy==2.2.1,kivymd==1.1.1,pillow,reportlab,pyjnius==1.5.0,plyer==2.1.0
 
 orientation = portrait
 
