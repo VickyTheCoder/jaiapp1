@@ -12,7 +12,6 @@ version = 1.0
 requirements = python3,kivy==2.2.1,kivymd==1.1.1,pillow,reportlab,pyjnius,plyer
 
 orientation = portrait
-
 fullscreen = 0
 
 android.permissions = READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE,INTERNET
