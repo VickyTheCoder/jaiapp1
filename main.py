@@ -11,7 +11,7 @@ from kivymd.uix.snackbar import Snackbar
 if platform == "android":
     from android.permissions import request_permissions, Permission
     from jnius import autoclass
-
+w=1
 KV = '''
 MDScreen:
     md_bg_color: 1,1,1,1
