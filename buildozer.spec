@@ -21,19 +21,12 @@ android.arch = arm64-v8a
 
 android.accept_sdk_license = True
 
-# IMPORTANT
-android.skip_update = False
-
-# DO NOT BUILD AAB
 android.release_artifact = apk
 
-# SDK
-android.sdk = 31
+android.skip_update = False
 
-# permissions
 android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 
-# p4a
 p4a.branch = develop
 
 log_level = 2
