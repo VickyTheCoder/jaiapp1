@@ -1,41 +1,45 @@
 [app]
 
-title = Kiwi Finalizer
-
+title = KiwiFinalizer
 package.name = kiwifinalizer
-package.domain = org.example
+package.domain = org.test
 
 source.dir = .
-source.include_exts = py,kv,png,jpg
+source.include_exts = py,png,jpg,kv,atlas,ttf,json
 
 version = 1.0
 
-requirements = python3==3.10.11,kivy==2.2.1,kivymd==1.1.1,pillow,reportlab,pyjnius==1.5.0,plyer==2.1.0
+requirements = python3,kivy==2.2.1,kivymd==1.1.1,pillow,reportlab,pyjnius==1.5.0,plyer==2.1.0
 
 orientation = portrait
 fullscreen = 0
 
 android.api = 31
 android.minapi = 21
-android.sdk = 31
 android.ndk = 25b
-android.build_tools = 31.0.0
-
-android.sdk_path = /home/runner/android-sdk
-android.ndk_path = /home/runner/.buildozer/android/platform/android-ndk-r25b
+android.arch = arm64-v8a
 
 android.accept_sdk_license = True
-android.skip_update = True
 
-android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
-
-android.archs = arm64-v8a
-
-# IMPORTANT FIX
 p4a.branch = develop
 
-# IMPORTANT FIX
+# VERY IMPORTANT
+# remove python3 version pin completely
+# do NOT use python3==3.10.11
+
+# disable AAB
 android.release_artifact = apk
 
+# use sdkmanager correctly
+android.skip_update = False
+
+# build tools
+android.sdk = 31
+android.sdk_path = /home/runner/android-sdk
+
+# permissions
+android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
+
 log_level = 2
-warn_on_root = 0
+
+warn_on_root = 1
