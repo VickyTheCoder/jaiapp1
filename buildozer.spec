@@ -5,7 +5,7 @@ package.name = kiwifinalizer
 package.domain = org.test
 
 source.dir = .
-source.include_exts = py,png,jpg,kv,atlas,ttf,json
+source.include_exts = py,png,jpg,kv,atlas,json,ttf
 
 version = 1.0
 
@@ -21,24 +21,20 @@ android.arch = arm64-v8a
 
 android.accept_sdk_license = True
 
-p4a.branch = develop
-
-# VERY IMPORTANT
-# remove python3 version pin completely
-# do NOT use python3==3.10.11
-
-# disable AAB
-android.release_artifact = apk
-
-# use sdkmanager correctly
+# IMPORTANT
 android.skip_update = False
 
-# build tools
+# DO NOT BUILD AAB
+android.release_artifact = apk
+
+# SDK
 android.sdk = 31
-android.sdk_path = /home/runner/android-sdk
 
 # permissions
-android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
+android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
+
+# p4a
+p4a.branch = develop
 
 log_level = 2
 
