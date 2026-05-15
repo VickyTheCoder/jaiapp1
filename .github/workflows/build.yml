@@ -16,67 +16,47 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
-      - name: Setup Java 17
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: "17"
 
-      - name: Install system packages
+      - name: Install dependencies
         run: |
           sudo apt update
 
           sudo apt install -y \
-            git zip unzip autoconf automake libtool \
-            pkg-config cmake \
-            zlib1g-dev libncurses5-dev libffi-dev \
-            libssl-dev
+            git zip unzip openjdk-17-jdk \
+            python3-pip autoconf libtool pkg-config \
+            zlib1g-dev libncurses5-dev libncursesw5-dev \
+            libtinfo5 cmake libffi-dev libssl-dev
 
-      - name: Install Python packages
-        run: |
-          python -m pip install --upgrade pip
-
-          pip install cython==0.29.36
-          pip install buildozer==1.5.0
-
-          pip install \
-            appdirs \
-            colorama \
-            jinja2 \
-            "sh<2.0" \
-            meson \
-            ninja \
-            build \
-            toml \
-            packaging \
-            setuptools==69.5.1 \
-            wheel==0.43.0
+          pip install --upgrade pip
+          pip install cython==0.29.36 buildozer
 
       - name: Install Android SDK cmdline-tools
         run: |
           mkdir -p $HOME/android-sdk/cmdline-tools
-          cd $HOME/android-sdk/cmdline-tools
 
-          wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O tools.zip
+          wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
 
-          unzip tools.zip
+          unzip commandlinetools-linux-11076708_latest.zip
 
-          mv cmdline-tools latest
+          mv cmdline-tools $HOME/android-sdk/cmdline-tools/latest
 
-      - name: Setup Android environment
-        run: |
           echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
           echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
 
           echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
           echo "$HOME/android-sdk/platform-tools" >> $GITHUB_PATH
 
-      - name: Install Android packages
+      - name: Install SDK packages
         run: |
           yes | sdkmanager --licenses
 
@@ -85,10 +65,19 @@ jobs:
             "platforms;android-31" \
             "build-tools;31.0.0"
 
-      - name: Clean previous builds
+      - name: Clone stable python-for-android
         run: |
           rm -rf .buildozer
-          rm -rf bin
+
+          mkdir -p .buildozer/android/platform
+
+          cd .buildozer/android/platform
+
+          git clone https://github.com/kivy/python-for-android.git
+
+          cd python-for-android
+
+          git checkout 2024.01.21
 
       - name: Build APK
         run: |
