@@ -1,28 +1,35 @@
 [app]
 
-title = KiwiFinalizer
-package.name = kiwifinalizer
+title = JaiApp1
+
+package.name = jaiapp1
 package.domain = org.test
 
 source.dir = .
-source.include_exts = py,png,jpg,kv,atlas,json,ttf
+source.include_exts = py,png,jpg,kv,atlas,ttf,json
 
 version = 1.0
 
 requirements = python3==3.10.11,kivy==2.2.1,kivymd==1.1.1,pillow,plyer==2.1.0
 
 orientation = portrait
+
 fullscreen = 0
 
-android.sdk = 34
 android.api = 31
 android.minapi = 21
 android.ndk = 25b
 
 android.archs = arm64-v8a
 
-p4a.branch = stable
+android.accept_sdk_license = True
+
+p4a.branch = 2024.01.21
+
+android.sdk = 31
+
+android.build_tools_version = 34.0.0
 
 log_level = 2
 
-warn_on_root = 0
+warn_on_root = 1
