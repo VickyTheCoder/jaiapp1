@@ -9,9 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-22.04
 
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,36 +24,60 @@ jobs:
           distribution: "temurin"
           java-version: "17"
 
-      - name: Install dependencies
+      - name: Install system packages
         run: |
           sudo apt update
 
           sudo apt install -y \
-            git zip unzip openjdk-17-jdk \
-            python3-pip autoconf automake libtool pkg-config \
-            zlib1g-dev libncurses5-dev libncursesw5-dev \
-            libtinfo5 cmake libffi-dev libssl-dev
+            zip \
+            unzip \
+            autoconf \
+            automake \
+            libtool \
+            pkg-config \
+            zlib1g-dev \
+            libncurses5-dev \
+            libncursesw5-dev \
+            libtinfo5 \
+            cmake \
+            libffi-dev \
+            libssl-dev \
+            build-essential \
+            ccache \
+            git \
+            python3-pip \
+            openjdk-17-jdk
 
+      - name: Install Buildozer
+        run: |
           pip install --upgrade pip
-          pip install cython==0.29.36 buildozer
+          pip install cython==0.29.36
+          pip install buildozer==1.5.0
+          pip install setuptools==65.5.0
+          pip install wheel
 
       - name: Install Android SDK cmdline-tools
         run: |
           mkdir -p $HOME/android-sdk/cmdline-tools
 
+          cd $HOME/android-sdk
+
           wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
 
           unzip commandlinetools-linux-11076708_latest.zip
 
-          mv cmdline-tools $HOME/android-sdk/cmdline-tools/latest
+          mv cmdline-tools latest
+
+          mkdir -p cmdline-tools
+
+          mv latest cmdline-tools/latest
 
           echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
           echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
-
           echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
           echo "$HOME/android-sdk/platform-tools" >> $GITHUB_PATH
 
-      - name: Install SDK packages
+      - name: Install Android SDK packages
         run: |
           yes | sdkmanager --licenses
 
@@ -65,7 +86,7 @@ jobs:
             "platforms;android-31" \
             "build-tools;31.0.0"
 
-      - name: Clone stable python-for-android
+      - name: Prepare python-for-android
         run: |
           rm -rf .buildozer
 
@@ -77,14 +98,14 @@ jobs:
 
           cd python-for-android
 
-          git checkout release-2024.01.21
+          git checkout develop
 
-      - name: Build APK
+      - name: Build AAB
         run: |
-          buildozer android debug
+          buildozer android release
 
-      - name: Upload APK
+      - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
-          name: apk
-          path: bin/*.apk
+          name: app-release
+          path: bin/*.aab
