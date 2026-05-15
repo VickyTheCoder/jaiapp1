@@ -1,6 +1,7 @@
 [app]
 
 title = KiwiFinalizer
+
 package.name = kiwifinalizer
 package.domain = org.test
 
@@ -18,6 +19,7 @@ fullscreen = 0
 android.api = 31
 android.minapi = 21
 android.ndk = 25b
+
 android.archs = arm64-v8a
 
 android.accept_sdk_license = True
