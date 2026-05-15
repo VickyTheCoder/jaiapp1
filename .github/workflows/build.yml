@@ -28,7 +28,7 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install Linux dependencies
+      - name: Install dependencies
         run: |
           sudo apt update
 
@@ -39,7 +39,7 @@ jobs:
             libssl-dev cmake ninja-build \
             ccache patch
 
-      - name: Install Python dependencies
+      - name: Install Python packages
         run: |
           python -m pip install --upgrade pip==23.2.1
 
@@ -87,8 +87,8 @@ jobs:
 
       - name: Clean old builds
         run: |
-          rm -rf .buildozer/applibs
-          rm -rf .buildozer/android/platform/build-*
+          rm -rf .buildozer
+          rm -rf ~/.buildozer
 
       - name: Build APK
         run: |
