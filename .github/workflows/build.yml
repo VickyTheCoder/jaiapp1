@@ -77,7 +77,7 @@ jobs:
 
           cd python-for-android
 
-          git checkout tags/2024.01.21
+          git checkout release-2024.01.21
 
       - name: Build APK
         run: |
