@@ -81,7 +81,7 @@ jobs:
           pip install \
             cython==0.29.36 \
             buildozer \
-            python-for-android==2024.01.21
+            python-for-android==master
 
       - name: Clean previous builds
         run: |

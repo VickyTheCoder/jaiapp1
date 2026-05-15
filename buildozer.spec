@@ -6,7 +6,7 @@ package.name = jaiapp1
 package.domain = org.test
 
 source.dir = .
-source.include_exts = py,png,jpg,kv,atlas,ttf,json
+source.include_exts = py,png,jpg,kv,atlas,json,ttf
 
 version = 1.0
 
@@ -24,12 +24,9 @@ android.archs = arm64-v8a
 
 android.accept_sdk_license = True
 
-p4a.branch = 2024.01.21
-
-android.sdk = 31
-
 android.build_tools_version = 34.0.0
 
 log_level = 2
 
 warn_on_root = 1
+p4a.branch = master
