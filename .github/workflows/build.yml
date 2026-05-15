@@ -27,16 +27,15 @@ jobs:
           distribution: "temurin"
           java-version: "17"
 
-      - name: Install system dependencies
+      - name: Install system packages
         run: |
           sudo apt update
 
           sudo apt install -y \
-            git zip unzip openjdk-17-jdk \
-            autoconf automake libtool \
-            pkg-config zlib1g-dev \
-            libncurses5-dev libncursesw5-dev \
-            cmake libffi-dev libssl-dev
+            git zip unzip autoconf automake libtool \
+            pkg-config cmake \
+            zlib1g-dev libncurses5-dev libffi-dev \
+            libssl-dev
 
       - name: Install Python packages
         run: |
@@ -55,21 +54,21 @@ jobs:
             build \
             toml \
             packaging \
-            setuptools \
+            setuptools==69.5.1 \
             wheel==0.43.0
 
-      - name: Install Android SDK Commandline Tools
+      - name: Install Android SDK cmdline-tools
         run: |
           mkdir -p $HOME/android-sdk/cmdline-tools
           cd $HOME/android-sdk/cmdline-tools
 
-          wget https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip -O tools.zip
+          wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O tools.zip
 
           unzip tools.zip
 
           mv cmdline-tools latest
 
-      - name: Set Android Environment
+      - name: Setup Android environment
         run: |
           echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
           echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
@@ -77,7 +76,7 @@ jobs:
           echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
           echo "$HOME/android-sdk/platform-tools" >> $GITHUB_PATH
 
-      - name: Install Android SDK Packages
+      - name: Install Android packages
         run: |
           yes | sdkmanager --licenses
 
