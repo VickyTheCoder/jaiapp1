@@ -40,7 +40,8 @@ jobs:
             cmake \
             libffi-dev \
             libssl-dev \
-            wget
+            wget \
+            git
 
       - name: Install Android SDK Command Line Tools
         run: |
@@ -50,7 +51,7 @@ jobs:
 
           wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
 
-          unzip commandlinetools-linux-11076708_latest.zip
+          unzip -o commandlinetools-linux-11076708_latest.zip
 
           mv cmdline-tools latest
 
@@ -72,7 +73,8 @@ jobs:
           sdkmanager \
             "platform-tools" \
             "platforms;android-31" \
-            "build-tools;34.0.0"
+            "build-tools;34.0.0" \
+            "ndk;25.2.9519653"
 
       - name: Install Python dependencies
         run: |
@@ -80,8 +82,8 @@ jobs:
 
           pip install \
             cython==0.29.36 \
-            buildozer \
-            python-for-android==master
+            buildozer==1.5.0 \
+            python-for-android==2024.01.21
 
       - name: Clean previous builds
         run: |

@@ -6,7 +6,7 @@ package.name = jaiapp1
 package.domain = org.test
 
 source.dir = .
-source.include_exts = py,png,jpg,kv,atlas,json,ttf
+source.include_exts = py,png,jpg,jpeg,kv,atlas,json,ttf
 
 version = 1.0
 
@@ -29,4 +29,3 @@ android.build_tools_version = 34.0.0
 log_level = 2
 
 warn_on_root = 1
-p4a.branch = master
