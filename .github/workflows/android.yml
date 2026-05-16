@@ -3,7 +3,7 @@ name: Build Flet APK
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-apk:
